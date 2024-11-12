@@ -173,24 +173,26 @@ sudo certbot --nginx
 
 7. Simulate the renewal process:
     By default, LetEncrypt certificate is valid for 90 days, it is recommended to renew it every 60 days to ensure your site remains secured. to simulate the renewal process, run the command:
+
 ```bash
     sudo certbot renew --dry-run
 ```
-    >NB: Remember to open the https port on AWS
+NB: Remember to open the https port on AWS
 
     - **Schedule Auto-Renewal**:
 ```bash
     crontab -e
 ```
-    Add:
+Add:
+
 ```bash
     */12 * * * * root /usr/bin/certbot renew > /dev/null 2>&1
 ```
 
-    >This command runs twice daily (every 12 hours).
-    >The **> /dev/null 2>&1** redirect suppresses all output, both standard and error messages, keeping the system logs clean.
+This command runs twice daily (every 12 hours).
+The **> /dev/null 2>&1** redirect suppresses all output, both standard and error messages, keeping the system logs clean.
 
-    >NB: This will check the SSL certificate validity twice daily. You can adjust it if twice is too much, see [cron guru](https://crontab.guru/) for reference
+NB: This will check the SSL certificate validity twice daily. You can adjust it if twice is too much, see [cron guru](https://crontab.guru/) for reference
 
 We have now successfuly configured a Nginx based Load Balancer for our webservers, ensured it can be accessed by a domain name and has SSL installed for security.
 
